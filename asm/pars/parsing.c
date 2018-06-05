@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:45:52 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/05 20:01:01 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/05 20:29:55 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ t_pars		*ft_get_type(*line, t_pars *lst)
 {
 	// if (r) REG_CODE 01 if (%) 10 else 11
 	// type [0] type [1] type [2]
-	ft_check_opname_type(lst, lst->op_code - 1);
+	// if is sm different we say error; 
+	ft_check_opname_type(lst, lst->op_code);
 	return (lst);
 }
 
