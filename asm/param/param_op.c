@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:35 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/06 18:05:46 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/06 21:14:01 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,43 @@
 
 t_pars		*ft_get_op_name(char *line, t_pars *lst)
 {
-	// split all the names, we gwt the i of char *tab
-	// the i is the int of the int tab (hexdec val)
-	// lst->op_code = ft_create_tab(lst->op_name);
+	int i;
+	int l;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	if (!*line)
+		return (lst);
+	else
+	{
+		l = i;
+		while (line[l] && (line[l] != ' ' && line[l] != '\t' && line[l] != '%'))
+		 	l++;
+		lst->op_name = ft_strsub(line, i, l - i);
+		while (l != i)
+			line[--l] = ' ';
+		lst->op_code = ft_create_tab(lst->op_name);
+	}
 	return (lst);
 }
+
+int			ft_create_tab(char *str)
+{
+	static char	**tab_name = NULL;
+	int	i;
+
+	i = 0;
+	if (!tab_name)
+		tab_name = ft_strsplit("live ld st add sub and or xor zjmp ldi sti fork lld lldi lfork aff", ' ');
+	while (tab_name[i])
+	{
+		if (ft_strcmp(str, tab_name[i]) == 0)
+			return (i + 1);
+		i++;
+	}
+	ft_exit("Wrong operation name");
+	return(-1);
+}
+
+// what if we have  more then 1 op name? do we check it after in get param?

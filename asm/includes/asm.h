@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:36:54 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/06 15:37:47 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/06 20:55:57 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ typedef struct		s_pars
 	char			*comment;
 	char			*op_name;
 	char			*param;
+	char			*value[4];
 	char			*line_code;
-	int				*type[3];
+	int				type[3];
 	int				op_code;
 	int				size_code;
 	struct s_pars	*next;

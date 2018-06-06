@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:33:35 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/06 17:48:51 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/06 21:15:05 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int		 		main(int ac, char **av)
 		fd = open(av[1], O_RDONLY);
 		op_codes = ft_get_info(fd, NULL, &head);
 	}
-	ft_printf("prog_name %s\n", head->prog_name);
-	ft_printf("prog_comment %s\n", head->comment);
+	ft_printf("prog_name -%s-\n", head->prog_name);
+	ft_printf("prog_comment -%s-\n", head->comment);
+	ft_printf("label -%s-\n", op_codes->label);
+	ft_printf("op_name -%s-\n", op_codes->op_name);
+	ft_printf("op_code %x\n", op_codes->op_code);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:28:48 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/06 18:05:50 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/06 20:43:15 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,9 @@ t_pars		*ft_init_lst(t_pars *lst, char *line)
 {
 	if (!(lst = (t_pars*)malloc(sizeof(t_pars))))
 		return (NULL);
-	if (!line)
-		lst->line = NULL;
-	else
+	ft_bzero(lst, sizeof(t_pars));
+	if (line)
 		lst->line = ft_strdup(line);
-	lst->label = NULL;
-	lst->comment = NULL;
-	lst->op_name = NULL;
-	lst->param = NULL;
-	lst->line_code = NULL;
-	lst->next = NULL;
-	lst->type[0] = 0;
-	lst->type[1] = 0;
-	lst->type[2] = 0;
-	lst->op_code = 0;
-	lst->size_code = 0;
 	return (lst);
 }
 
@@ -75,22 +63,4 @@ void		ft_add_lst(t_pars **lst, t_pars *new)
 		else if (new)
 			*lst = new;
 	}
-}
-
-int			ft_create_tab(char *str)
-{
-	static char	**tab_name = NULL;
-	int	i;
-
-	i = 0;
-	if (!tab_name)
-		tab_name = ft_strsplit("live ld st add sub and or xor zjmo ldi sti fork lld lldi lfork aff", ' ');
-	while (tab_name[i])
-	{
-		if (ft_strcmp(str, tab_name[i]) == 0)
-			return (i + 1);
-		i++;
-	}
-	ft_exit("Wrong operation name");
-	return(-1);
 }
