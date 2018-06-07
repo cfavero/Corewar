@@ -6,24 +6,48 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:28 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/06 13:50:12 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/07 16:33:34 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_pars		*ft_get_size_code(char *line, t_pars *lst)
+t_pars		*ft_size_count(t_pars *lst, int value)
 {
-	// if (op_code) == 1/9/12/15 size = 5 (1) size = 3 (9/12/15)
-	// else check the type (10/11/14) D = 2 ->  2 + IN(2) + D(2) + R(1)
-	// else 2 + IN(2) + D(4) + R(1)
+	int k;
+
+	k = 0;
+	while (k++ < 3)
+	{
+		if (lst->type[k] == 1)
+			lst->size_code++;
+		else if (lst->type[k] == 2)
+			lst->size_code += value;
+		else if (lst->type[k] == 3)
+			lst->size_code += 2;
+	}
 	return (lst);
 }
 
-int			ft_total_size_code(char *line, t_pars *lst)
+t_pars		*ft_get_size_code(t_pars *lst, int i, int tot_size)
 {
-	int	size_code;
-	if (size_code > MEM_SIZE) //Not sure about the MEM_SIZE being the total byte count
+	lst->size_code = 2;
+	if (i == 9 || 1 == 12 || i == 15 || i == 16)
+		lst->size_code = 3;
+	else if (i == 1 || i == 4 || i == 5)
+		lst->size_code = 5;
+	else if (i == 10 || i == 11 || i == 14)
+		lst = ft_size_count(lst, 2);
+	else
+		lst = ft_size_count(lst, 4);
+	lst->position = ft_total_size_code(lst, tot_size);
+	return (lst);
+}
+
+int			ft_total_size_code(t_pars *lst, int tot_size)
+{
+	tot_size += lst->size_code;
+	if (tot_size > MEM_SIZE) //Not sure about the MEM_SIZE being the total byte count
 		ft_exit("File too big");
-	return (size_code);
+	return (tot_size);
 }

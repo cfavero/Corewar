@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:32 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/06 19:50:32 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/07 15:36:51 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,25 @@ t_pars		*ft_get_label(char *line, t_pars *l)
 
 	if ((s = ft_strchr(line, LABEL_CHAR)) != NULL)
 	{
+		if (s != line)
+			s--;
+		if (*s == DIRECT_CHAR)
+			return (l);
+		s++;
 		i = 0;
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
 		s[0] = '\0';
 		len =  ft_strlen(line) - i;
 		s[0] = LABEL_CHAR;
-		if ((*s - 1) != DIRECT_CHAR)
-			l->label = ft_strsub(line, i, len);
-		else
-			return (l);
+		l->label = ft_strsub(line, i, len);
 		while (line[i] && line[i] != LABEL_CHAR)
 			line[i++] = ' ';
 		line[i] = ' ';
 		i = 0;
 		while (l->label[i])
 		{
-			if (ft_isalnum(l->label[i]) == 1)
+			if (ft_isalnum(l->label[i]) == 1 || l->label[i] == '_')
 				i++;
 			else
 				ft_exit("Error in the label name");
@@ -44,6 +46,3 @@ t_pars		*ft_get_label(char *line, t_pars *l)
 	}
 	return (l);
 }
-
-// what if we have and actual label but has the wrong name ex. ciao%: ??
-// so far we return but we should say error 0.0

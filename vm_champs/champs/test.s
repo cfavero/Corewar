@@ -1,10 +1,10 @@
-.name           "42"
-.comment        "Just a basic Winner Program"
+.name"42"
+.comment  "Just a basic Winner Program ciaoooooo"
 
 #com
 
-entree:
-		live %89
+entree12:
+		live %89 #bu
 		ld %5, r2
 		st r5, 9
 		add r2, r3, r9

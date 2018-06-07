@@ -6,7 +6,7 @@
 #    By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/05 11:40:02 by mmanley           #+#    #+#              #
-#    Updated: 2018/06/06 15:09:39 by mmanley          ###   ########.fr        #
+#    Updated: 2018/06/07 14:13:14 by mmanley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,10 @@ SRCS =	main.c\
 		param/param_code.c\
 		param/param_type.c\
 		errors/errors.c\
+		errors/debug.c\
 		errors/err_parsing.c\
+		asm_to_byte/create_file.c\
+		asm_to_byte/write_bytes.c\
 
 OBJS_BASE = $(SRCS:%.c=%.o)
 
@@ -57,6 +60,7 @@ objs :
 	@mkdir -p objs/errors
 	@mkdir -p objs/pars
 	@mkdir -p objs/param
+	@mkdir -p objs/asm_to_byte
 
 $(OBJ_PATH)%.o: %.c
 	@gcc -o $@ -c $< -I $(LIB_PATH)/ -I ./$(INC)

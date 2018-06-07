@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:33:35 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/06 21:15:05 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/07 16:40:43 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		 		main(int ac, char **av)
 	int			fd;
 	t_pars		*op_codes;
 	header_t	*head;
+	t_labels	*lst_label;
 	char		*test = ft_strdup("   .name   \"54s\" ");
 	char		*test2 = ft_strdup("   .comment   \"funziona!!\"  ");
 
@@ -36,16 +37,13 @@ int		 		main(int ac, char **av)
 	// ft_printf("prog_name %s\n", head->prog_name);
 	// ft_printf("prog_comment %s\n", head->comment);
 	if (ac != 2)
-		ft_printf("Error: need a file\n");
+		ft_printf("Error\nUsage: ./asm [Path]/[File_name]\n");
 	else
 	{
-		fd = open(av[1], O_RDONLY);
-		op_codes = ft_get_info(fd, NULL, &head);
+		if ((fd = open(av[1], O_RDONLY)) == -1)
+			ft_exit("File doesn't exist");
+		op_codes = ft_get_info(fd, &lst_label, &head);
+		fd = create_file(av[1], 0, head, op_codes);
 	}
-	ft_printf("prog_name -%s-\n", head->prog_name);
-	ft_printf("prog_comment -%s-\n", head->comment);
-	ft_printf("label -%s-\n", op_codes->label);
-	ft_printf("op_name -%s-\n", op_codes->op_name);
-	ft_printf("op_code %x\n", op_codes->op_code);
 	return (0);
 }
