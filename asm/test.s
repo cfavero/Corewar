@@ -1,6 +1,6 @@
 
 
-.name"tesbhjtgjiadfjigheuhgauehuihyigheriufgh" #ciao
+.name"tesbhjtgjiadfjigheuhgaueh\nuihyigheriufgh" #ciao
 
 
 
@@ -17,9 +17,9 @@ label:	live %89 #bu
 	xor 589, %78, r19
 	zjmp %56
 	ldi 5, %8, r99
-	sti r1, %:l, %2147483647
+	sti r1, %:label, %2147483647
 	lld %8, r2
-	lldi 89, %8, r2
+	lldi 89, 8, r2
 	aff r3
 
 test: live %8

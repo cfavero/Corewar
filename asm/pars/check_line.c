@@ -6,19 +6,19 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:28:48 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/07 13:08:22 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/08 19:29:31 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "asm.h"
+#include "asm.h"
 
-t_pars		*ft_check_line(char *line, t_pars *lst, header_t **head)
+t_pars		*ft_check_line(char *line, t_pars *lst, header_t **hd)
 {
 	t_pars	*new;
 
-	if (!(*head)->prog_name[0] || !(*head)->comment[0])
+	if (!(*hd)->prog_name[0] || !(*hd)->comment[0])
 	{
-		if (((ft_head_name(line, head)) == 1) || ((ft_head_com(line, head)) == 1))
+		if (((ft_head_name(line, hd)) == 1) || ((ft_head_com(line, hd)) == 1))
 			return (lst);
 		else
 		{

@@ -6,7 +6,7 @@
 #    By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/05 11:40:02 by mmanley           #+#    #+#              #
-#    Updated: 2018/06/07 14:13:14 by mmanley          ###   ########.fr        #
+#    Updated: 2018/06/08 17:40:01 by mmanley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ GREEN = \x1b[32m
 WHITE = \x1b[0m
 
 OBJ_PATH = objs/
+
+FAN = -fsanitize=address -g3
 
 SRCS =	main.c\
 		pars/get_info.c\
@@ -49,7 +51,7 @@ OBJS = $(addprefix $(OBJ_PATH), $(OBJS_BASE))
 all : $(LIB) $(NAME)
 
 $(NAME) : objs $(OBJS)
-	@gcc -o $@ $(OBJS) $(LIB_PATH)/$(LIB) -I $(LIB_PATH)/ -I ./$(INC) $(CFLAGS)
+	@gcc -o $@ $(OBJS) $(LIB_PATH)/$(LIB) -I $(LIB_PATH)/ -I ./$(INC) $(CFLAGS) $(FAN)
 	@echo "${WHITE}Asm			${GREEN}DONE${WHITE}"
 
 $(LIB) :
