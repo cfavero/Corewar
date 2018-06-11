@@ -6,7 +6,7 @@
 #    By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/05 11:40:02 by mmanley           #+#    #+#              #
-#    Updated: 2018/06/08 17:40:01 by mmanley          ###   ########.fr        #
+#    Updated: 2018/06/09 17:16:47 by mmanley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ OBJS = $(addprefix $(OBJ_PATH), $(OBJS_BASE))
 all : $(LIB) $(NAME)
 
 $(NAME) : objs $(OBJS)
-	@gcc -o $@ $(OBJS) $(LIB_PATH)/$(LIB) -I $(LIB_PATH)/ -I ./$(INC) $(CFLAGS) $(FAN)
+	@gcc -o $@ $(OBJS) $(LIB_PATH)/$(LIB) -I $(LIB_PATH)/ -I ./$(INC) $(CFLAGS)
 	@echo "${WHITE}Asm			${GREEN}DONE${WHITE}"
 
 $(LIB) :
@@ -64,7 +64,7 @@ objs :
 	@mkdir -p objs/param
 	@mkdir -p objs/asm_to_byte
 
-$(OBJ_PATH)%.o: %.c
+$(OBJ_PATH)%.o: %.c $(INC)/asm.h
 	@gcc -o $@ -c $< -I $(LIB_PATH)/ -I ./$(INC)
 
 clean :

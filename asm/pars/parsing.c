@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:45:52 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/06 17:45:12 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/09 18:37:30 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_head_name(char *line, header_t **head)
 	if ((s = ft_strstr(line, NAME_CMD_STRING)) != NULL)
 	{
 		if ((*head)->prog_name[0])
-			ft_exit("Already a .Name");
+			ft_exit("Already a .Name", 0);
 		if ((s = ft_strchr(line, 34)) != NULL)
 		{
 			s++;
@@ -44,13 +44,13 @@ int		ft_head_name(char *line, header_t **head)
 				while (s[len] && s[len] != 34)
 					len++;
 				if (len > PROG_NAME_LENGTH)
-					ft_exit("Error .Name too long");
+					ft_exit("Error .Name too long", 0);
 				ft_strncpy((*head)->prog_name, s, len);
 				ft_error_head_name(line, NAME_CMD_STRING);
 				return (1);
 			}
 		}
-		ft_exit("Error in the .Name");
+		ft_exit("Error in the .Name", 0);
 	}
 	return (0);
 }
@@ -63,7 +63,7 @@ int		ft_head_com(char *line, header_t **head)
 	if ((s = ft_strstr(line, COMMENT_CMD_STRING)) != NULL)
 	{
 		if ((*head)->comment[0])
-			ft_exit("Already a .Comment");
+			ft_exit("Already a .Comment", 0);
 		if ((s = ft_strchr(line, 34)) != NULL)
 		{
 			s++;
@@ -73,13 +73,13 @@ int		ft_head_com(char *line, header_t **head)
 				while (s[len] && s[len] != 34)
 					len++;
 				if (len > COMMENT_LENGTH)
-					ft_exit("Error .Comment too long");
+					ft_exit("Error .Comment too long", 0);
 				ft_strncpy((*head)->comment, s, len);
 				ft_error_head_name(line, COMMENT_CMD_STRING);
 				return (1);
 			}
 		}
-		ft_exit("Error in the .Comment");
+		ft_exit("Error in the .Comment", 0);
 	}
 	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:28:48 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/08 19:29:31 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/09 18:36:49 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_pars		*ft_check_line(char *line, t_pars *lst, header_t **hd)
+t_pars		*ft_check_line(char *line, t_pars *lst, header_t **hd, int counter)
 {
 	t_pars	*new;
 
@@ -27,12 +27,12 @@ t_pars		*ft_check_line(char *line, t_pars *lst, header_t **hd)
 				line++;
 			if (!*line)
 				return (lst);
-			ft_exit("We need an header");
+			ft_exit("We need an header", counter);
 		}
 	}
 	line = ft_comment_delete(line);
 	if (!(new = ft_init_lst(new, line)))
-		ft_exit("Malloc faild(init_lst)");
+		ft_exit("Malloc faild(init_lst)", counter);
 	ft_add_lst(&lst, new);
 	return (lst);
 }

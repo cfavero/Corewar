@@ -6,13 +6,13 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:35 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/08 19:03:46 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/09 18:44:14 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_pars		*ft_get_op_name(char *line, t_pars *lst)
+t_pars		*ft_get_op_name(char *line, t_pars *lst, int counter)
 {
 	int i;
 	int l;
@@ -30,12 +30,12 @@ t_pars		*ft_get_op_name(char *line, t_pars *lst)
 		lst->op_name = ft_strsub(line, i, l - i);
 		while (l != i)
 			line[--l] = ' ';
-		lst->op_code = ft_create_tab(lst->op_name);
+		lst->op_code = ft_create_tab(lst->op_name, counter);
 	}
 	return (lst);
 }
 
-int			ft_create_tab(char *str)
+int			ft_create_tab(char *str, int counter)
 {
 	static char	**tab_name = NULL;
 	int	i;
@@ -49,7 +49,7 @@ int			ft_create_tab(char *str)
 			return (i + 1);
 		i++;
 	}
-	ft_exit("Wrong operation name");
+	ft_exit("Wrong operation name", counter);
 	return(-1);
 }
 

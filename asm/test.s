@@ -19,7 +19,7 @@ label:	live %89 #bu
 	ldi 5, %8, r99
 	sti r1, %:label, %2147483647
 	lld %8, r2
-	lldi 89, 8, r2
+	lldi 89, %8, r2
 	aff r3
 
 test: live %8

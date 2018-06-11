@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 09:53:45 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/07 11:31:17 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/09 18:41:12 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char		*ft_get_filename(char *name)
 	while (name[i] && (name[i] == ' ' || name[i] == '\t') && i > 0)
 		i--;
 	if (name[i] != 's' || name[i - 1] != '.')
-		ft_exit("Wrong file extension");
+		ft_exit("Wrong file extension", 0);
 	while (name[i] && i > 0 && name[i] != '/')
 	{
 		i--;
@@ -40,17 +40,16 @@ char		*ft_get_filename(char *name)
 	return (new);
 }
 
-int			create_file(char *asm_file, int fd, header_t *head, t_pars *ops)
+int			create_file(char *file, t_labels *lab, header_t *head, t_pars *ops)
 {
 	char	*cor_file;
+	int		fd;
 
-	if (!(cor_file = ft_get_filename(asm_file)))
-		ft_exit("Did not get cor file name");
-	ft_printf("%s\n", cor_file);
+	if (!(cor_file = ft_get_filename(file)))
+		ft_exit("Did not get cor file name", 0);
 	if ((fd = open(cor_file, O_RDWR | O_CREAT, 0647)) == -1)
-		ft_exit("Had a problem with open in creat file");
-	ft_printf("Cor fd = %d\n", fd);
+		ft_exit("Had a problem with open in creat file", 0);
 	write_header(fd, head);
-	write_commands(fd, ops);
+	ft_get_code(ops, lab, fd);
 	return (fd);
 }
