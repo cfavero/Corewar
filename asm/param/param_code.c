@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:28 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/09 18:45:05 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 14:37:05 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,34 +38,37 @@ int			count_op_size(t_pars *lst)
 t_pars		*ft_get_hexadecimal(t_pars *lst, int fd)
 {
 	int	tmp;
+	t_op	op_tab;
 
+	// ft_printf("--Starting hexa decimal ft\n");
+	op_tab = all_info(lst->op_code - 1);
 	if (!lst)
-		exit(1);
+		ft_exit("No lst in hexa", 1);
 	write(fd, &lst->op_code, 1);
 	tmp = count_op_size(lst);
-	if (!(lst->op_code == 1 || lst->op_code == 12 || lst->op_code == 9 || \
-		lst->op_code == 15))
+	if (op_tab.oct_code)
 		write(fd, &tmp, 1);
 	ft_print_params(lst, fd, 0, 0);
+	// ft_printf("--ENDING Hexadecimal ft\n");
 	return (lst);
 }
 
-t_pars		*ft_size_count(t_pars *lst, int value)
+t_pars		*ft_size_count(t_pars *lst, int value, t_op *op_tab)
 {
 	int k;
 
 	k = -1;
-	while (++k < 3)
+	while (++k < op_tab->nb_params)
 	{
-		if (lst->type[k] == 1)
-			lst->size_code++;
-		else if (lst->type[k] == 2)
+		if (lst->type[k] == T_REG)
+			lst->size_code += 1;
+		else if (lst->type[k] == T_DIR)
 		{
 			lst->size_code += value;
 			if (lst->value[k][0] == ':')
 				lst->label_size = lst->size_code;
 		}
-		else if (lst->type[k] == 3)
+		else if (lst->type[k] == T_IND)
 			lst->size_code += 2;
 	}
 	return (lst);
@@ -73,24 +76,19 @@ t_pars		*ft_size_count(t_pars *lst, int value)
 
 t_pars		*ft_get_size_code(t_pars *lst, int i, int tot_size)
 {
-	lst->size_code = 2;
-	lst->dir_size = DIR_SIZE;
-	if (i == 9 || 1 == 12 || i == 15 || i == 16 || i == 1)
+	t_op	op_tab;
+
+	if (lst && lst->op_name)
 	{
-		lst->size_code = (i == 1) ? 5 : 3;
-		if (lst->value[0][0] == ':')
+		lst->size_code = 1;
+		op_tab = all_info(lst->op_code - 1);
+		lst->size_code += op_tab.oct_code;
+		if (op_tab.oct_code == 0 && lst->value[0][0] == ':')
 			lst->label_size = lst->size_code;
+		lst = ft_size_count(lst, lst->dir_size, &op_tab);
+			// ft_printf("Pos = %02d	Size_code : %02d\n", lst->position, lst->size_code);
+		if ((lst->position + lst->size_code) > CHAMP_MAX_SIZE)
+				ft_exit("File too big", 0);
 	}
-	else if (i == 4 || i == 5)
-		lst->size_code = 5;
-	else if (i == 10 || i == 11 || i == 14)
-	{
-		lst = ft_size_count(lst, IND_SIZE);
-		lst->dir_size = IND_SIZE;
-	}
-	else
-		lst = ft_size_count(lst, DIR_SIZE);
-	if ((lst->position + lst->size_code) > MEM_SIZE)
-			ft_exit("File too big", 0);
 	return (lst);
 }

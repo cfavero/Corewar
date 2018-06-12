@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:35:12 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/09 18:34:36 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/11 14:27:07 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	ft_exit(char *message, int i)
 {
 	if (message)
-		ft_printf("%s line %d\n", message, i);
+		ft_printf("%s : line [%03d]\n", message, i);
 	exit(1);
 }

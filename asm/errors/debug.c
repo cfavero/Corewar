@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 14:02:22 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/08 19:04:43 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 00:32:57 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		ft_print_lst_current(t_pars *lst)
 	lst->type[2], lst->value[2]);
 	ft_printf(" Position = %d\n nb byte = %d\n", lst->position, lst->size_code);
 	ft_printf(" label_size = %d\n", lst->label_size);
+	ft_printf("________________________\n");
 }
 
 void		ft_print_labeled(t_labels *lst)

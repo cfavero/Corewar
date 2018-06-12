@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:33:35 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/09 18:37:44 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/11 23:26:29 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int		 		main(int ac, char **av)
 			ft_exit("File doesn't exist", 0);
 		op_codes = ft_get_info(fd, &lst_label, &head);
 		give_max_size(&lst_label, op_codes);
+		head->prog_size = lst_label->max_size;
+		head->magic = COREWAR_EXEC_MAGIC;
+		ft_printf("Max size = %d\n", lst_label->max_size);
 		fd = create_file(av[1], lst_label, head, op_codes);
 		ft_printf("%s was created\n", ft_get_filename(av[1]));
 	}

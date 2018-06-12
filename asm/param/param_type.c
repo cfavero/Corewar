@@ -6,13 +6,13 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:38 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/09 18:53:03 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/11 19:52:53 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			ft_get_value(t_pars **lst, int k, int i, int code, char *line, int counter)
+int			ft_get_value(t_pars **lst, int k, int i, int code, char *line)
 {
 	int j;
 
@@ -23,14 +23,15 @@ int			ft_get_value(t_pars **lst, int k, int i, int code, char *line, int counter
 	while (line[j] && line[j] != ',' && line[j] != ' ')
 		j++;
 	(*lst)->value[k] = ft_strndup(&line[i], j - i);
+	// ft_printf("%s\n", (*lst)->value[k]);
 	if (line[j] == ',')
 		j++;
 	i = j;
-	ft_error_values((*lst)->value[k], code, counter);
+	ft_error_values((*lst)->value[k], code, (*lst)->line_nb);
 	return (i);
 }
 
-t_pars		*ft_get_type(char *line, t_pars *lst, int counter)
+t_pars		*ft_get_type(char *line, t_pars *lst)
 {
 	int i;
 	int k;
@@ -43,18 +44,19 @@ t_pars		*ft_get_type(char *line, t_pars *lst, int counter)
 	if (!line[i] && !lst->op_name)
 		return (lst);
 	else if (!line[i] && lst->op_name)
-		ft_exit("Need params", counter);
+		ft_exit("Need params", lst->line_nb);
 	while (line[i] && k < 3)
 	{
 		j = 0;
 		if (line[i] == 'r')
-			i = ft_get_value(&lst, k, i, REG_CODE, line, counter);
+			i = ft_get_value(&lst, k, i, REG_CODE, line);
 		else if (line[i] == '%')
-			i = ft_get_value(&lst, k, i, DIR_CODE, line, counter);
-		else if (ft_isdigit(line[i]) == 1)
-			i = ft_get_value(&lst, k, i, IND_CODE, line, counter);
+			i = ft_get_value(&lst, k, i, DIR_CODE, line);
+		else if ((ft_isdigit(line[i]) == 1) || (line[i] == '-' && line[i + 1]\
+		&& ft_isdigit(line[i + 1]) == 1))
+			i = ft_get_value(&lst, k, i, IND_CODE, line);
 		else if (line[i] && (line[i] != ' ' && line[i] != '\t'))
-			ft_exit("Error in the params", counter);
+			ft_exit("Error in the params", lst->line_nb);
 		while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 			i++;
 		k++;
@@ -62,8 +64,8 @@ t_pars		*ft_get_type(char *line, t_pars *lst, int counter)
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
 	if (line[i])
-		ft_exit("Error after the params", counter);
-	ft_check_opname_type(lst, lst->op_code, counter);
+		ft_exit("Error after the params", lst->line_nb);
+	ft_check_opname_type(lst, lst->op_code, lst->line_nb);
 	return (lst);
 }
 

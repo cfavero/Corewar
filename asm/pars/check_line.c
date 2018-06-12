@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:28:48 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/09 18:36:49 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 14:31:10 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_pars		*ft_check_line(char *line, t_pars *lst, header_t **hd, int counter)
 	line = ft_comment_delete(line);
 	if (!(new = ft_init_lst(new, line)))
 		ft_exit("Malloc faild(init_lst)", counter);
+	new->line_nb = counter;
 	ft_add_lst(&lst, new);
 	return (lst);
 }
@@ -62,5 +63,51 @@ void		ft_add_lst(t_pars **lst, t_pars *new)
 		}
 		else if (new)
 			*lst = new;
+	}
+}
+
+/*
+**Find this shit  with the labels alone
+*/
+void 			ft_solo_label(t_pars **lst, t_labels **label)
+{
+	t_pars		*tmp;
+	t_pars		*tmp2;
+	t_labels	*lab;
+
+	tmp = *lst;
+	tmp2 = *lst;
+	lab = *label;
+	if (!lst || !tmp)
+		return ;
+	// ft_printf("Let's see what gives\n");
+	while (tmp->next)
+	{
+		// ft_print_lst_current(tmp);
+		if (tmp->next->label && !tmp->next->op_name)
+			tmp2 = tmp;
+		if (tmp && tmp->next && tmp->label && !tmp->op_name)
+		{
+			while (lab->lst != tmp)
+				lab = lab->next;
+			tmp->next->label = ft_strdup(tmp->label);
+			lab->lst = tmp->next;
+			if (tmp2 != *lst)
+				tmp2->next = tmp->next;
+			else
+			{
+				// ft_printf("Redo first node\n");
+				*lst = tmp2->next;
+			}
+			// ft_print_lst_current(tmp->next);
+			free(tmp->label);
+			tmp->label = NULL;
+			free(tmp);
+			tmp = *lst;
+			tmp2 = *lst;
+			lab = *label;
+		}
+		// ft_printf("End of fat ass function\n");
+		tmp = tmp->next;
 	}
 }

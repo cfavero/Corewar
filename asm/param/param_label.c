@@ -6,14 +6,20 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:32 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/09 18:54:16 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 14:30:18 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_pars		*ft_get_label_values(t_pars *l, t_labels *label, int k)
+/*
+**Have to rethink the operation to calculate distance to label
+*/
+t_pars		*ft_get_label_values(t_pars *l, t_labels *lab, int k)
 {
+	t_labels	*label;
+
+	label = lab;
 	while ((l->type[k] != DIR_CODE || l->value[k][0] != ':') && k < 3)
 	{
 		if (!l->value[k])
@@ -26,13 +32,15 @@ t_pars		*ft_get_label_values(t_pars *l, t_labels *label, int k)
 		label = label->next;
 	if (!label)
 		ft_exit("Label name not found", 0);
+	// ft_printf("Op = %d	Check --> %d\n", l->op_code, label->lst->position - l->position);
 	if (label->lst->position - l->position > 0)
-		l->value[k] = ft_itoa((label->lst->position - l->position) + l->label_size);
+		l->value[k] = ft_itoa((label->lst->position - l->position));
 	else
-		l->value[k] = ft_itoa((label->max_size + ((label->lst->position -\
-			 l->position) - l->label_size)));
+		l->value[k] = ft_itoa(0xFFFF + ((label->lst->position -\
+			 l->position) + 0x01));
+	// ft_printf("%s\n", l->value[k]);
 	if (k != 2)
-		l = ft_get_label_values(l, label, k);
+		l = ft_get_label_values(l, lab, k);
 	return (l);
 }
 
@@ -59,13 +67,13 @@ void		ft_add_label(t_labels **save, t_pars *labeled, int counter)
 	}
 }
 
-t_pars		*ft_get_label(char *line, t_pars *l, t_labels **save, int counter)
+t_pars		*ft_get_label(char *line, t_pars *l, t_labels **save)
 {
 	char	*s;
 	int		len;
 	int		i;
 
-	if ((s = ft_strchr(line, LABEL_CHAR)) != NULL)
+	if (line && (s = ft_strchr(line, LABEL_CHAR)) != NULL)
 	{
 		(s != line) ? s-- : s;
 		if (*s == DIRECT_CHAR || s == line)
@@ -78,11 +86,11 @@ t_pars		*ft_get_label(char *line, t_pars *l, t_labels **save, int counter)
 		len = ft_strlen(line) - i;
 		s[0] = LABEL_CHAR;
 		l->label = ft_strsub(line, i, len);
-		ft_add_label(save, l, counter);
+		ft_add_label(save, l, l->line_nb);
 		while (line[i] && line[i] != LABEL_CHAR)
 			line[i++] = ' ';
 		line[i] = ' ';
-		ft_check_label(l, i, counter);
+		ft_check_label(l, i, l->line_nb);
 	}
 	return (l);
 }

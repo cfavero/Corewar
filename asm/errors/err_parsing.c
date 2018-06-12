@@ -6,36 +6,29 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:47:44 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/09 18:53:32 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/11 22:23:36 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		ft_check_opname_type(t_pars *l, int i, int counter)
+t_pars		*ft_check_opname_type(t_pars *l, int i, int counter)
 {
-	if ((i == 1 || i == 9 || 1 == 12 || i == 15) && (l->type[0] != 2 \
-		|| l->type[1] != 0 || l->type[2] != 0))
-		ft_exit("The params are wrong for the op type", counter);
-	else if ((i == 4 || i == 5) && (l->type[0] != 1 || l->type[1] != 1 \
-		|| l->type[2] != 1))
-		ft_exit("The params are wrong for the op type", counter);
-	else if ((i == 6 || i == 7 || i == 8) && (l->type[2] != 1))
-		ft_exit("The params are wrong for the op type", counter);
-	else if ((i == 2 || i == 13) && (l->type[0] == 1 || l->type[1] != 1 \
-		|| l->type[2] != 0))
-		ft_exit("The params are wrong for the op type", counter);
-	else if (i == 16 && (l->type[0] != 1 || l->type[1] != 0 || l->type[2] != 0))
-		ft_exit("The params are wrong for the op type", counter);
-	else if (i == 10 && (l->type[2] != 1 || l->type[1] == 1))
-		ft_exit("The params are wrong for the op type", counter);
-	else if (i == 11 && (l->type[0] != 1 || l->type[2] == 1))
-		ft_exit("The params are wrong for the op type", counter);
-	else if (i == 14 && (l->type[1] == 1 || l->type[2] != 1))
-		ft_exit("The params are wrong for the op type", counter);
-	else if (i == 3 && (l->type[0] != 1 || l->type[1] == 2 || l->type[2] != 0))
-		ft_exit("The params are wrong for the op type", counter);
-	return (0);
+	int		j;
+	t_op	op_tab;
+
+	j = 0;
+	op_tab = all_info(i - 1);
+	while (j < op_tab.nb_params)
+	{
+		// ft_printf("j = %d	my_type = %d	accepted types %d	op_code %d\n", j, l->type[j], op_tab.type[j], i);
+		if (!(l->type[j] & op_tab.type[j]))
+			ft_exit("The params are wrong for the op type", counter);
+		l->dir_size = (op_tab.mod_dir == 1) ? 2 : 4;
+		// ft_printf("%d\n", l->dir_size);
+		j++;
+	}
+	return (l);
 }
 
 void	ft_error_head_name(char *line, char *name)
@@ -62,7 +55,7 @@ void	ft_error_head_name(char *line, char *name)
 
 void	ft_error_values(char *value, int code, int counter)
 {
-	if (code == 2 && *value == ':')
+	if (code == DIR_CODE && *value == ':')
 	{
 		value++;
 		while (value && (ft_isalnum(*value) == 1 || *value == '_'))
@@ -70,9 +63,21 @@ void	ft_error_values(char *value, int code, int counter)
 		if (value && *value)
 			ft_exit("Not a valid digit in the param value", counter);
 	}
+	else if (code == IND_CODE && *value == '-')
+	{
+		value++;
+		while (value && (ft_isdigit(*value) == 1))
+			value++;
+		if (value && *value)
+			ft_exit("Not a digit in the param IND_CODE", counter);
+	}
 	else
 	{
+		if (code == DIR_CODE && *value == '-')
+			value++;
 		while (value && (ft_isdigit(*value) == 1))
+			value++;
+		while (value && (*value == ' ' || *value == '\t'))
 			value++;
 		if (value && *value)
 			ft_exit("Not a digit in the param value", counter);

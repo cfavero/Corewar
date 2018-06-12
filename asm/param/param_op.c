@@ -6,13 +6,13 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:35 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/09 18:44:14 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/11 23:49:09 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_pars		*ft_get_op_name(char *line, t_pars *lst, int counter)
+t_pars		*ft_get_op_name(char *line, t_pars *lst)
 {
 	int i;
 	int l;
@@ -30,7 +30,7 @@ t_pars		*ft_get_op_name(char *line, t_pars *lst, int counter)
 		lst->op_name = ft_strsub(line, i, l - i);
 		while (l != i)
 			line[--l] = ' ';
-		lst->op_code = ft_create_tab(lst->op_name, counter);
+		lst->op_code = ft_create_tab(lst->op_name, lst->line_nb);
 	}
 	return (lst);
 }
