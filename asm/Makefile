@@ -6,7 +6,7 @@
 #    By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/05 11:40:02 by mmanley           #+#    #+#              #
-#    Updated: 2018/06/12 15:43:24 by mmanley          ###   ########.fr        #
+#    Updated: 2018/06/12 19:16:32 by mmanley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ SRCS =	main.c\
 		asm_to_byte/create_file.c\
 		asm_to_byte/write_bytes.c\
 		options/options.c\
-		options/options_file.c
+		options/options_file.c\
+		options/options_ft.c
 
 OBJS_BASE = $(SRCS:%.c=%.o)
 

@@ -6,16 +6,16 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:35 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 17:37:32 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 19:28:45 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_pars		*ft_get_op_name(char *line, t_pars *lst)
+t_pars			*ft_get_op_name(char *line, t_pars *lst)
 {
-	int i;
-	int l;
+	int			i;
+	int			l;
 
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
@@ -26,7 +26,7 @@ t_pars		*ft_get_op_name(char *line, t_pars *lst)
 	{
 		l = i;
 		while (line[l] && (line[l] != ' ' && line[l] != '\t' && line[l] != '%'))
-		 	l++;
+			l++;
 		lst->op_name = ft_strsub(line, i, l - i);
 		while (l != i)
 			line[--l] = ' ';
@@ -35,14 +35,19 @@ t_pars		*ft_get_op_name(char *line, t_pars *lst)
 	return (lst);
 }
 
-int			ft_create_tab(char *str, int counter)
+/*
+**what if we have  more then 1 op name? do we check it after in get param?
+*/
+
+int				ft_create_tab(char *str, int counter)
 {
 	static char	**tab_name = NULL;
-	int	i;
+	int			i;
 
 	i = 0;
 	if (!tab_name)
-		tab_name = ft_strsplit("live ld st add sub and or xor zjmp ldi sti fork lld lldi lfork aff", ' ');
+		tab_name = ft_strsplit("live ld st add sub and or xor zjmp ldi sti \
+		fork lld lldi lfork aff", ' ');
 	while (tab_name[i])
 	{
 		if (ft_strcmp(str, tab_name[i]) == 0)
@@ -50,7 +55,5 @@ int			ft_create_tab(char *str, int counter)
 		i++;
 	}
 	ft_exit("Wrong operation name", counter);
-	return(-1);
+	return (-1);
 }
-
-// what if we have  more then 1 op name? do we check it after in get param?

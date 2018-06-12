@@ -6,7 +6,7 @@
 /*   By: exam <exam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 10:32:46 by exam              #+#    #+#             */
-/*   Updated: 2018/06/12 15:44:11 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 19:23:10 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ char			**option_check(char **av, int ac, int *opt)
 {
 	int			sv;
 	int			i;
-	int			j;
 
 	i = 1;
+	*opt = 0;
 	sv = 0;
 	while (i < ac)
 	{
@@ -101,17 +101,7 @@ char			**option_check(char **av, int ac, int *opt)
 			usage option\n-i Affiche header info\n");
 		i++;
 	}
-	i = 1;
-	j = 0;
-	while (i < ac)
-	{
-		while (av[i][j] && av[i][j] == ' ')
-			j++;
-		if (!av[i][j])
-			i++;
-		else
-			break ;
-	}
+	av = find_non_flag(av, ac);
 	*opt = sv;
-	return (&av[i]);
+	return (av);
 }

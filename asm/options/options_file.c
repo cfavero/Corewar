@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 17:55:39 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 18:10:30 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 19:22:18 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,28 @@ void				check_for_i(int *i)
 	}
 }
 
-void 			write_oct_color(unsigned int nbr, int code_size, int *i)
+void				write_oct_color(unsigned int nb, int size, int *i, char *co)
 {
-	int			j;
-	int			bytes;
+	int				j;
+	int				bytes;
 
 	j = 0;
-	bytes = code_size;
-	while (code_size--)
+	bytes = size;
+	ft_printf(co);
+	while (size--)
 	{
 		bytes--;
-		j = nbr >> (bytes * 8);
+		j = nb >> (bytes * 8);
 		ft_printf("%02x ", j & 0xFF);
 		check_for_i(i);
 	}
 }
 
-void		ft_print_bonus(t_pars *lst, int k, int bytes, int *i)
+void				ft_print_bonus(t_pars *lst, int k, int bytes, int *i)
 {
-	unsigned int tmp;
-	t_op		op_tab;
-	int j;
+	unsigned int	tmp;
+	t_op			op_tab;
+	int				j;
 
 	j = 0;
 	op_tab = all_info(lst->op_code - 1);
@@ -53,73 +54,39 @@ void		ft_print_bonus(t_pars *lst, int k, int bytes, int *i)
 		tmp = ft_atoll(lst->value[k]);
 		bytes = byte_size(tmp);
 		if (lst->type[k] == 1)
-		{
-			ft_printf(MAGENTA);
-			write_oct_color(tmp, 1, i);
-		}
+			write_oct_color(tmp, 1, i, MAGENTA);
 		else if (lst->type[k] == 2 && lst->dir_size == 4)
-		{
-			ft_printf(YELLOW);
-			write_oct_color(tmp, DIR_SIZE, i);
-		}
+			write_oct_color(tmp, DIR_SIZE, i, YELLOW);
 		else if (lst->type[k] == 3 || lst->type[k] == 2)
-		{
-			ft_printf(RED);
-			write_oct_color(tmp, IND_SIZE, i);
-		}
+			write_oct_color(tmp, IND_SIZE, i, RED);
 		k++;
 	}
 }
 
-t_pars		*ft_print_hexa(t_pars *lst)
+t_pars				*ft_print_hexa(t_pars *lst)
 {
-	int		tmp;
-	t_op	op_tab;
-	static int	i = 0;
+	int				tmp;
+	t_op			op_tab;
+	static int		i = 0;
 
 	op_tab = all_info(lst->op_code - 1);
 	if (!lst)
 		ft_exit("No lst in hexa", 1);
-	ft_printf(LCYAN);
 	ft_printf(BOLD);
-	write_oct_color(lst->op_code, 1, &i);
+	write_oct_color(lst->op_code, 1, &i, LCYAN);
 	ft_printf(NBOLD);
 	tmp = count_op_size(lst);
 	if (op_tab.oct_code)
-	{
-		ft_printf(GREEN);
-		write_oct_color(tmp, 1, &i);
-	}
+		write_oct_color(tmp, 1, &i, GREEN);
 	ft_print_bonus(lst, 0, 0, &i);
 	return (lst);
 }
 
-void		print_header(header_t *head)
+void				print_hexa(t_labels *lb, header_t *hd, t_pars *ops, int op)
 {
-	ft_printf(ORANGE);
-	ft_printf("%-12s: ", "Exec_magic");
-	ft_printf(LYELLOW);
-	ft_printf("-->%#x<--\n", head->magic);
-	ft_printf(ORANGE);
-	ft_printf("%-12s: ", "Prog_name");
-	ft_printf(YELLOW);
-	ft_printf("-->%s<--\n", head->prog_name);
-	ft_printf(ORANGE);
-	ft_printf("%-12s: ", "Prog_size");
-	ft_printf(LYELLOW);
-	ft_printf("-->%d Bytes<-->%#x<\n", head->prog_size, head->prog_size);
-	ft_printf(ORANGE);
-	ft_printf("%-12s: ", "Comment");
-	ft_printf(YELLOW);
-	ft_printf("-->%s<--\n", head->comment);
-	ft_printf("\n");
-}
-
-void		print_hexa(t_labels *lab, header_t *head, t_pars *ops, int opt)
-{
-	if (opt & I && head)
-		print_header(head);
+	if (op & I && hd)
+		print_header(hd);
 	if (ops)
-		ft_get_code(ops, lab, 0, opt);
-		ft_printf("\n\n");
+		ft_get_code(ops, lb, 0, op);
+	ft_printf("\n\n");
 }

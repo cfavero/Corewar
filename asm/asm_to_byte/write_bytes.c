@@ -6,16 +6,16 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 11:21:15 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 14:30:00 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 19:01:53 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void 			write_oct(int fd, unsigned int nbr, int code_size)
+void				write_oct(int fd, unsigned int nbr, int code_size)
 {
-	int			j;
-	int			bytes;
+	int				j;
+	int				bytes;
 
 	j = 0;
 	bytes = code_size;
@@ -27,9 +27,9 @@ void 			write_oct(int fd, unsigned int nbr, int code_size)
 	}
 }
 
-int				byte_size(unsigned int w)
+int					byte_size(unsigned int w)
 {
-	int			bsize;
+	int				bsize;
 
 	bsize = 0;
 	if (w <= 0xFF)
@@ -43,11 +43,11 @@ int				byte_size(unsigned int w)
 	return (bsize);
 }
 
-void		ft_print_params(t_pars *lst, int fd, int k, int bytes)
+void				ft_print_params(t_pars *lst, int fd, int k, int bytes)
 {
-	unsigned int tmp;
-	t_op		op_tab;
-	int j;
+	unsigned int	tmp;
+	t_op			op_tab;
+	int				j;
 
 	j = 0;
 	op_tab = all_info(lst->op_code - 1);
@@ -55,8 +55,6 @@ void		ft_print_params(t_pars *lst, int fd, int k, int bytes)
 	{
 		tmp = ft_atoll(lst->value[k]);
 		bytes = byte_size(tmp);
-		// ft_printf("TMP 1 --> %u	%#x		nb_param = %d\n", tmp, tmp, op_tab.nb_params);
-			// ft_printf("TMP 2 --> %d	%#x\n", tmp, tmp);
 		if (lst->type[k] == 1)
 			write(fd, &tmp, 1);
 		else if (lst->type[k] == 2 && lst->dir_size == 4)
@@ -67,12 +65,11 @@ void		ft_print_params(t_pars *lst, int fd, int k, int bytes)
 	}
 }
 
-void	ft_write_bits(unsigned char octet, int size, int fd)
+void				ft_write_bits(unsigned char octet, int size, int fd)
 {
-	int oct;
+	int				oct;
 
 	oct = octet;
-
 	if (size)
 	{
 		ft_write_bits(octet >> 1, size - 1, fd);
@@ -80,11 +77,11 @@ void	ft_write_bits(unsigned char octet, int size, int fd)
 	}
 }
 
-void		write_header(int fd, header_t *head)
+void				write_header(int fd, header_t *head)
 {
-	int		len;
-	int		bytes;
-	int		j;
+	int				len;
+	int				bytes;
+	int				j;
 
 	bytes = byte_size(head->magic);
 	write_oct(fd, head->magic, DIR_SIZE);

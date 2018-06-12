@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:28 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 18:09:03 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 19:28:31 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ int			count_op_size(t_pars *lst)
 		k++;
 		test -= 2;
 	}
-	return(tmp);
+	return (tmp);
 }
 
 /*
 **How to do the overflow in the number of bytes to print
 */
+
 t_pars		*ft_get_hexadecimal(t_pars *lst, int fd)
 {
-	int	tmp;
+	int		tmp;
 	t_op	op_tab;
 
-	// ft_printf("--Starting hexa decimal ft\n");
 	op_tab = all_info(lst->op_code - 1);
 	if (!lst)
 		ft_exit("No lst in hexa", 1);
@@ -49,7 +49,6 @@ t_pars		*ft_get_hexadecimal(t_pars *lst, int fd)
 	if (op_tab.oct_code)
 		write(fd, &tmp, 1);
 	ft_print_params(lst, fd, 0, 0);
-	// ft_printf("--ENDING Hexadecimal ft\n");
 	return (lst);
 }
 
@@ -87,12 +86,9 @@ t_pars		*ft_get_size_code(t_pars *lst, int i, int tot_size)
 		lst->size_code = 1;
 		op_tab = all_info(lst->op_code - 1);
 		lst->size_code += op_tab.oct_code;
-		/*if (op_tab.oct_code == 0 && lst->value[0][0] == ':')
-			lst->label_size = lst->size_code;*/
 		lst = ft_size_count(lst, lst->dir_size, &op_tab);
-			// ft_printf("Pos = %02d	Size_code : %02d\n", lst->position, lst->size_code);
 		if ((lst->position + lst->size_code) > CHAMP_MAX_SIZE)
-				ft_exit("File too big", 0);
+			ft_exit("File too big", 0);
 	}
 	return (lst);
 }

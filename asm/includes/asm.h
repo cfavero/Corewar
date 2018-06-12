@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:36:54 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 17:43:11 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 19:15:52 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,14 @@ void				ft_error_head_name(char *line, char *name);
 void				ft_exit(char *message, int i);
 void				ft_print_lst(t_pars *lst);
 void				ft_error_values(char *value, int code, int counter);
-void 				ft_print_labeled(t_labels *lst);
+void				ft_print_labeled(t_labels *lst);
 void				ft_check_label(t_pars *l, int i, int counter);
 void				ft_print_lst_current(t_pars *lst);
 /*
 **PARSING
 */
 t_op				all_info(int i);
+char				*check_line(char *line);
 void				ft_add_lst(t_pars **lst, t_pars *new);
 t_pars				*ft_check_line(char *line, t_pars *lst, header_t **head,\
 	int counter);
@@ -83,7 +84,7 @@ int					ft_head_com(char *line, header_t **head);
 int					ft_head_name(char *line, header_t **head);
 t_pars				*ft_init_lst(t_pars *lst, char *line);
 t_pars				*ft_parsing(t_pars *lst, t_pars *tmp, t_labels **save);
-void 				ft_solo_label(t_pars **lst, t_labels **label);
+void				ft_solo_label(t_pars **lst, t_labels **label);
 int					ft_total_size_code(t_pars *lst, int tot_size);
 /*
 **FILE CREATION
@@ -105,5 +106,7 @@ t_pars				*ft_print_hexa(t_pars *lst);
 char				**option_check(char **av, int ac, int *opt);
 void				print_hexa(t_labels *lab, header_t *head, t_pars *ops,\
 	int opt);
+void				print_header(header_t *head);
+char				**find_non_flag(char **av, int ac);
 
 #endif
