@@ -6,11 +6,20 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:28:48 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 15:46:00 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 18:43:42 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+char		*check_line(char *line)
+{
+	while (*line && (*line == ' ' || *line == '\t'))
+		line++;
+	if (!line || !*line)
+		return (NULL);
+	return (line);
+}
 
 t_pars		*ft_check_line(char *line, t_pars *lst, header_t **hd, int counter)
 {
@@ -23,14 +32,14 @@ t_pars		*ft_check_line(char *line, t_pars *lst, header_t **hd, int counter)
 		else
 		{
 			line = ft_comment_delete(line);
-			while (*line && (*line == ' ' || *line == '\t'))
-				line++;
-			if (!*line)
+			if (!(line = check_line(line)))
 				return (lst);
 			ft_exit("We need a header", counter);
 		}
 	}
 	line = ft_comment_delete(line);
+	if (!(line = check_line(line)))
+		return (lst);
 	if (!(new = ft_init_lst(new, line)))
 		ft_exit("Malloc faild(init_lst)", counter);
 	new->line_nb = counter;

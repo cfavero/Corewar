@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:33:32 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 16:03:49 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 18:43:24 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,18 @@ t_pars		*ft_get_info(int fd, t_labels **save, header_t **head)
 		if (line && *line)
 		{
 			lst = ft_check_line(line, lst, head, counter);
-			if (lst)
+			if (lst && check_line(line))
 			{
+				ft_printf("3_%s_\n", line);
 				if (!(lst = ft_parsing(lst, lst, save)))
 					ft_exit("ft_parsing failed", counter);
-				}
+			}
+			/*if (lst)
+			{
+				ft_print_lst(lst);
+				// exit (1);
+
+			}*/
 		}
 		counter++;
 		ft_strdel(&line);
@@ -68,6 +75,7 @@ t_pars		*ft_parsing(t_pars *lst, t_pars *tmp, t_labels **save)
 t_pars		*ft_get_code(t_pars *lst, t_labels *label, int fd, int opt)
 {
 	t_pars *tmp;
+	t_op	op_tab;
 
 	ft_solo_label(&lst, &label);
 	tmp = lst;
@@ -80,8 +88,10 @@ t_pars		*ft_get_code(t_pars *lst, t_labels *label, int fd, int opt)
 	// ft_printf("Start writing :\n");
 	while (lst)
 	{
-		// ft_printf("- Before get values for labels\n");
-		if (!(lst = ft_get_label_values(lst, label, 0)))
+		// ft_printf("- Before get values for labels : op_code %d\n", lst->op_code);
+		op_tab = all_info(lst->op_code - 1);
+		// ft_printf("Top_tab->nb_params : %d\n", op_tab.nb_params);
+		if (!(lst = ft_get_label_values(lst, label, 0, &op_tab)))
 			ft_exit("get_label failed", 0);
 		if (opt & D)
 		{

@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:38 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/11 19:52:53 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 17:35:31 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			ft_get_value(t_pars **lst, int k, int i, int code, char *line)
 	while (line[j] && line[j] != ',' && line[j] != ' ')
 		j++;
 	(*lst)->value[k] = ft_strndup(&line[i], j - i);
-	// ft_printf("%s\n", (*lst)->value[k]);
+	// ft_printf("----%s\n", (*lst)->value[k]);
 	if (line[j] == ',')
 		j++;
 	i = j;
@@ -53,7 +53,7 @@ t_pars		*ft_get_type(char *line, t_pars *lst)
 		else if (line[i] == '%')
 			i = ft_get_value(&lst, k, i, DIR_CODE, line);
 		else if ((ft_isdigit(line[i]) == 1) || (line[i] == '-' && line[i + 1]\
-		&& ft_isdigit(line[i + 1]) == 1))
+		&& ft_isdigit(line[i + 1]) == 1) || line[i] == ':')
 			i = ft_get_value(&lst, k, i, IND_CODE, line);
 		else if (line[i] && (line[i] != ' ' && line[i] != '\t'))
 			ft_exit("Error in the params", lst->line_nb);

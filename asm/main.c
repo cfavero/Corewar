@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:33:35 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 16:45:39 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 18:19:32 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ int		 		main(int ac, char **av)
 		head->magic = COREWAR_EXEC_MAGIC;
 		ft_printf("Max size = %d\n", lst_label->max_size);
 		op_codes = create_file(av[0], lst_label, head, op_codes);
-		ft_printf("%s was created\n", ft_get_filename(av[0]));
 		if (opt & D)
 			print_hexa(lst_label, head, op_codes, opt);
+		ft_printf(LGREEN);
+		ft_printf("%s was created\n", ft_get_filename(av[0]));
 	}
 	return (0);
 }

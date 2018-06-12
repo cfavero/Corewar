@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 17:55:39 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 16:59:51 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 18:10:30 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void		print_header(header_t *head)
 	ft_printf(ORANGE);
 	ft_printf("%-12s: ", "Prog_size");
 	ft_printf(LYELLOW);
-	ft_printf("-->%d Bytes<--\n", head->prog_size);
+	ft_printf("-->%d Bytes<-->%#x<\n", head->prog_size, head->prog_size);
 	ft_printf(ORANGE);
 	ft_printf("%-12s: ", "Comment");
 	ft_printf(YELLOW);

@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:28 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 14:37:05 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 18:09:03 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,20 @@ t_pars		*ft_size_count(t_pars *lst, int value, t_op *op_tab)
 	k = -1;
 	while (++k < op_tab->nb_params)
 	{
-		if (lst->type[k] == T_REG)
+		if (lst->type[k] == REG_CODE)
 			lst->size_code += 1;
-		else if (lst->type[k] == T_DIR)
+		else if (lst->type[k] == DIR_CODE)
 		{
 			lst->size_code += value;
 			if (lst->value[k][0] == ':')
 				lst->label_size = lst->size_code;
 		}
-		else if (lst->type[k] == T_IND)
+		else if (lst->type[k] == IND_CODE)
+		{
 			lst->size_code += 2;
+			if (lst->value[k][0] == ':')
+				lst->label_size = lst->size_code;
+		}
 	}
 	return (lst);
 }
@@ -83,8 +87,8 @@ t_pars		*ft_get_size_code(t_pars *lst, int i, int tot_size)
 		lst->size_code = 1;
 		op_tab = all_info(lst->op_code - 1);
 		lst->size_code += op_tab.oct_code;
-		if (op_tab.oct_code == 0 && lst->value[0][0] == ':')
-			lst->label_size = lst->size_code;
+		/*if (op_tab.oct_code == 0 && lst->value[0][0] == ':')
+			lst->label_size = lst->size_code;*/
 		lst = ft_size_count(lst, lst->dir_size, &op_tab);
 			// ft_printf("Pos = %02d	Size_code : %02d\n", lst->position, lst->size_code);
 		if ((lst->position + lst->size_code) > CHAMP_MAX_SIZE)

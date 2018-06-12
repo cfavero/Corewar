@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:47:44 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/11 22:23:36 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 17:34:53 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	ft_error_head_name(char *line, char *name)
 
 void	ft_error_values(char *value, int code, int counter)
 {
-	if (code == DIR_CODE && *value == ':')
+	if ((code == DIR_CODE && *value == ':') || (code == IND_CODE &&\
+		*value == ':'))
 	{
 		value++;
 		while (value && (ft_isalnum(*value) == 1 || *value == '_'))
