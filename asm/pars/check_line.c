@@ -6,24 +6,15 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:28:48 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 18:43:42 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 19:43:16 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-char		*check_line(char *line)
+t_pars			*ft_check_line(char *line, t_pars *lst, header_t **hd, int cnt)
 {
-	while (*line && (*line == ' ' || *line == '\t'))
-		line++;
-	if (!line || !*line)
-		return (NULL);
-	return (line);
-}
-
-t_pars		*ft_check_line(char *line, t_pars *lst, header_t **hd, int counter)
-{
-	t_pars	*new;
+	t_pars		*new;
 
 	if (!(*hd)->prog_name[0] || !(*hd)->comment[0])
 	{
@@ -34,20 +25,20 @@ t_pars		*ft_check_line(char *line, t_pars *lst, header_t **hd, int counter)
 			line = ft_comment_delete(line);
 			if (!(line = check_line(line)))
 				return (lst);
-			ft_exit("We need a header", counter);
+			ft_exit("We need a header", cnt);
 		}
 	}
 	line = ft_comment_delete(line);
 	if (!(line = check_line(line)))
 		return (lst);
 	if (!(new = ft_init_lst(new, line)))
-		ft_exit("Malloc faild(init_lst)", counter);
-	new->line_nb = counter;
+		ft_exit("Malloc faild(init_lst)", cnt);
+	new->line_nb = cnt;
 	ft_add_lst(&lst, new);
 	return (lst);
 }
 
-t_pars		*ft_init_lst(t_pars *lst, char *line)
+t_pars			*ft_init_lst(t_pars *lst, char *line)
 {
 	if (!(lst = (t_pars*)malloc(sizeof(t_pars))))
 		return (NULL);
@@ -57,9 +48,9 @@ t_pars		*ft_init_lst(t_pars *lst, char *line)
 	return (lst);
 }
 
-void		ft_add_lst(t_pars **lst, t_pars *new)
+void			ft_add_lst(t_pars **lst, t_pars *new)
 {
-	t_pars *tmp;
+	t_pars		*tmp;
 
 	if (new)
 	{
@@ -75,10 +66,23 @@ void		ft_add_lst(t_pars **lst, t_pars *new)
 	}
 }
 
+void			free_bad_node(t_pars **node, t_pars *lst, t_pars **tmp2)
+{
+	t_pars		*tmp;
+
+	tmp = *node;
+	free(tmp->label);
+	tmp->label = NULL;
+	free(tmp);
+	tmp = lst;
+	*tmp2 = lst;
+}
+
 /*
 **Find this shit  with the labels alone
 */
-void 			ft_solo_label(t_pars **lst, t_labels **label)
+
+void			ft_solo_label(t_pars **lst, t_labels **label)
 {
 	t_pars		*tmp;
 	t_pars		*tmp2;
@@ -89,10 +93,8 @@ void 			ft_solo_label(t_pars **lst, t_labels **label)
 	lab = *label;
 	if (!lst || !tmp)
 		return ;
-	// ft_printf("Let's see what gives\n");
 	while (tmp->next)
 	{
-		// ft_print_lst_current(tmp);
 		if (tmp->next->label && !tmp->next->op_name)
 			tmp2 = tmp;
 		if (tmp && tmp->next && tmp->label && !tmp->op_name)
@@ -104,19 +106,10 @@ void 			ft_solo_label(t_pars **lst, t_labels **label)
 			if (tmp2 != *lst)
 				tmp2->next = tmp->next;
 			else
-			{
-				// ft_printf("Redo first node\n");
 				*lst = tmp2->next;
-			}
-			// ft_print_lst_current(tmp->next);
-			free(tmp->label);
-			tmp->label = NULL;
-			free(tmp);
-			tmp = *lst;
-			tmp2 = *lst;
+			free_bad_node(&tmp, *lst, &tmp2);
 			lab = *label;
 		}
-		// ft_printf("End of fat ass function\n");
 		tmp = tmp->next;
 	}
 }
