@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:33:32 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 14:37:05 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 16:03:49 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_pars		*ft_parsing(t_pars *lst, t_pars *tmp, t_labels **save)
 	return (tmp);
 }
 
-t_pars		*ft_get_code(t_pars *lst, t_labels *label, int fd)
+t_pars		*ft_get_code(t_pars *lst, t_labels *label, int fd, int opt)
 {
 	t_pars *tmp;
 
@@ -83,9 +83,14 @@ t_pars		*ft_get_code(t_pars *lst, t_labels *label, int fd)
 		// ft_printf("- Before get values for labels\n");
 		if (!(lst = ft_get_label_values(lst, label, 0)))
 			ft_exit("get_label failed", 0);
-		// ft_printf("- Before Hex\n");
-		if (!(lst = ft_get_hexadecimal(lst, fd)))
-			ft_exit("get_hexadecimal failed", 0);
+		if (opt & D)
+		{
+			if (!(lst = ft_print_hexa(lst)))
+				ft_exit("Print hexa out failed", 0);
+		}
+		else
+			if (!(lst = ft_get_hexadecimal(lst, fd)))
+				ft_exit("get_hexadecimal failed", 0);
 		// ft_printf("- Before the next link [%p]\n", lst->next);
 		lst = lst->next;
 	}

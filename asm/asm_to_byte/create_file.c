@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 09:53:45 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/09 18:41:12 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 15:59:49 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char		*ft_get_filename(char *name)
 	return (new);
 }
 
-int			create_file(char *file, t_labels *lab, header_t *head, t_pars *ops)
+t_pars		*create_file(char *file, t_labels *lab, header_t *head, t_pars *ops)
 {
 	char	*cor_file;
 	int		fd;
@@ -50,6 +50,6 @@ int			create_file(char *file, t_labels *lab, header_t *head, t_pars *ops)
 	if ((fd = open(cor_file, O_RDWR | O_CREAT, 0647)) == -1)
 		ft_exit("Had a problem with open in creat file", 0);
 	write_header(fd, head);
-	ft_get_code(ops, lab, fd);
-	return (fd);
+	ops = ft_get_code(ops, lab, fd, 0);
+	return (ops);
 }

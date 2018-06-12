@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:36:54 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 14:29:18 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 16:03:17 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define ASM_H
 # include "ft_printf.h"
 # include "op.h"
+
+enum {D = 1, H = 2, I = 4};
 
 typedef struct		s_pars
 {
@@ -68,7 +70,7 @@ t_pars				*ft_check_line(char *line, t_pars *lst, header_t **head,\
 t_pars				*ft_check_opname_type(t_pars *l, int i, int counter);
 char				*ft_comment_delete(char *line);
 int					ft_create_tab(char *line, int counter);
-t_pars				*ft_get_code(t_pars *lst, t_labels *label, int fd);
+t_pars				*ft_get_code(t_pars *lst, t_labels *label, int fd, int opt);
 t_pars				*ft_get_hexadecimal(t_pars *lst, int fd);
 t_pars				*ft_get_info(int fd, t_labels **save, header_t **head);
 t_pars				*ft_get_label(char *line, t_pars *lst, t_labels **save);
@@ -82,11 +84,10 @@ t_pars				*ft_init_lst(t_pars *lst, char *line);
 t_pars				*ft_parsing(t_pars *lst, t_pars *tmp, t_labels **save);
 void 				ft_solo_label(t_pars **lst, t_labels **label);
 int					ft_total_size_code(t_pars *lst, int tot_size);
-t_pars				*ft_get_code(t_pars *lst, t_labels *label, int fd);
 /*
 **FILE CREATION
 */
-int					create_file(char *file, t_labels *lab, header_t *head,\
+t_pars				*create_file(char *file, t_labels *lab, header_t *head,\
 	t_pars *ops);
 char				*ft_get_filename(char *name);
 void				ft_write_bits(unsigned char octet, int size, int fd);
@@ -95,7 +96,13 @@ void				write_header(int fd, header_t *head);
 int					byte_size(unsigned int w);
 void				ft_print_params(t_pars *lst, int fd, int k, int bytes);
 char				*ft_get_filename(char *name);
-
-
+/*
+**OPTION
+*/
+int					count_op_size(t_pars *lst);
+t_pars				*ft_print_hexa(t_pars *lst);
+char				**option_check(char **av, int ac, int *opt);
+void				print_hexa(t_labels *lab, header_t *head, t_pars *ops,\
+	int opt);
 
 #endif

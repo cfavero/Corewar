@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:28:48 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 14:31:10 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 15:46:00 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_pars		*ft_check_line(char *line, t_pars *lst, header_t **hd, int counter)
 				line++;
 			if (!*line)
 				return (lst);
-			ft_exit("We need an header", counter);
+			ft_exit("We need a header", counter);
 		}
 	}
 	line = ft_comment_delete(line);
