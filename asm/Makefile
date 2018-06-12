@@ -6,7 +6,7 @@
 #    By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/05 11:40:02 by mmanley           #+#    #+#              #
-#    Updated: 2018/06/12 19:16:32 by mmanley          ###   ########.fr        #
+#    Updated: 2018/06/12 20:45:28 by mmanley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,12 @@ objs :
 $(OBJ_PATH)%.o: %.c $(INC)/asm.h
 	@gcc -o $@ -c $< -I $(LIB_PATH)/ -I ./$(INC)
 
+test:
+	./asm  ../vm_champs/champs/championships/2017/iburel/gateau.s -di
+	./asm  ../vm_champs/champs/championships/2017/pzarmehr/overwatch.s  -di
+	./asm  ../vm_champs/champs/championships/2017/tbillard/Douceur_power.s -di
+	./asm  ../vm_champs/champs/championships/2017/jaustry/mise_a_jour_windows95.s -di
+	./asm test1.s -di
 clean :
 	@rm -rf $(OBJS) objs
 	@cd $(LIB_PATH) && $(MAKE) clean
