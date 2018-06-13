@@ -107,7 +107,7 @@ corruption_first2:
 	ld				%167685120,r11
 	ld				%4,r1
 	sub             r16, r16, r16
-	zjmp            :end2
+	zjmp            %:end2
 
 corruption_second2:
 	ld		%190055681,r4

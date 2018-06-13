@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:45:52 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/13 18:15:25 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/13 20:26:45 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int		copy_comment(header_t **head, char *s, char *line, int cnt)
 	// ft_printf("<->%s<->\n", s);
 	while (s[len] && s[len] != 34)
 		len++;
+	(s[len] || s[len] == 34) ? len -= 1 : len;
 	(len > COMMENT_LENGTH) ? ft_exit(".Comment too long", cnt) : 0;
 	ft_strncat((*head)->comment, s, len);
 	if ((ft_strchr(s, 34)) == NULL)

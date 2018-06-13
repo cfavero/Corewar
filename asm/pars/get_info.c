@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:33:32 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/13 19:36:45 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/13 20:21:48 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_pars		*ft_get_info(int fd, t_labels **save, header_t **head)
 	counter = 1;
 	while ((get_next_line(fd, &line)) > 0)
 	{
-		if (line && *line)
+		if ((line && *line) || (line && (*head)->magic == 0 && !*line))
 		{
 			lst = ft_check_line(line, lst, head, counter);
 			if (lst && check_line(line))
