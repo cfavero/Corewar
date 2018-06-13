@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:35 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 19:41:11 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/13 14:28:04 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ int				ft_create_tab(char *str, int counter)
 {
 	static char	**tab_name = NULL;
 	int			i;
+	char		*s;
 
 	i = 0;
+	s = "live ld st add sub and or xor zjmp ldi sti fork lld lldi lfork aff";
 	if (!tab_name)
-		tab_name = ft_strsplit("live ld st add sub and or xor zjmp ldi sti fork lld lldi lfork aff", ' ');
+		tab_name = ft_strsplit(s, ' ');
 	while (tab_name[i])
 	{
 		if (ft_strcmp(str, tab_name[i]) == 0)

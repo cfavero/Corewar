@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 09:53:45 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 15:59:49 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/13 13:13:38 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char		*ft_get_filename(char *name)
 	while (name[i] && (name[i] == ' ' || name[i] == '\t') && i > 0)
 		i--;
 	if (name[i] != 's' || name[i - 1] != '.')
-		ft_exit("Wrong file extension", 0);
+		ft_exit("Wrong file extension", -1);
 	while (name[i] && i > 0 && name[i] != '/')
 	{
 		i--;

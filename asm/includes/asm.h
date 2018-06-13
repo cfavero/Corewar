@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:36:54 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 19:15:52 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/13 14:42:03 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct		s_op
 */
 void				ft_error_head_name(char *line, char *name);
 void				ft_exit(char *message, int i);
+void				ft_exit_str(char *name, char *mes, char c[6], char c2[6]);
 void				ft_print_lst(t_pars *lst);
 void				ft_error_values(char *value, int code, int counter);
 void				ft_print_labeled(t_labels *lst);
@@ -80,11 +81,10 @@ t_pars				*ft_get_label_values(t_pars *lst, t_labels *label, int k,\
 t_pars				*ft_get_op_name(char *line, t_pars *lst);
 t_pars				*ft_get_size_code(t_pars *lst, int i, int tot_size);
 t_pars				*ft_get_type(char *line, t_pars *lst);
-int					ft_head_com(char *line, header_t **head);
-int					ft_head_name(char *line, header_t **head);
+int					ft_hd_com(char *line, header_t **head, int cnt, int len);
+int					ft_hd_name(char *line, header_t **head, int cnt);
 t_pars				*ft_init_lst(t_pars *lst, char *line);
 t_pars				*ft_parsing(t_pars *lst, t_pars *tmp, t_labels **save);
-void				ft_solo_label(t_pars **lst, t_labels **label);
 int					ft_total_size_code(t_pars *lst, int tot_size);
 /*
 **FILE CREATION

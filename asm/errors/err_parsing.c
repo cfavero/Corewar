@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:47:44 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 19:05:20 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/13 13:38:23 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ void		ft_error_values(char *value, int code, int counter)
 			value++;
 		while (value && (ft_isdigit(*value) == 1))
 			value++;
-		while (value && (*value == ' ' || *value == '\t'))
-			value++;
 	}
+	while (value && (*value == ' ' || *value == '\t'))
+		value++;
 	if (value && *value)
 		ft_exit("Not a valid digit in the param value", counter);
 }

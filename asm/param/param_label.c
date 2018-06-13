@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:32 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/12 19:30:50 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/13 14:30:59 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ t_pars		*ft_get_label_values(t_pars *l, t_labels *lab, int k, t_op *op_tab)
 	}
 	if (k == op_tab->nb_params)
 		return (l);
-	while (label && ft_strequ(&l->value[k][1], label->lst->label) == 0)
+	while (label->next && ft_strequ(&l->value[k][1], label->lst->label) == 0)
 		label = label->next;
-	if (!label)
-		ft_exit("Label name not found", 0);
+	(!label) ? ft_exit("Label name not found in label_values", -1) : 0;
+	while (label->lst->next && label->lst->op_code == 0)
+		label->lst = label->lst->next;
 	if (label->lst->position - l->position > 0)
 		l->value[k] = ft_itoa((label->lst->position - l->position));
 	else
@@ -80,7 +81,8 @@ t_pars		*ft_get_label(char *line, t_pars *l, t_labels **save)
 	if (line && (s = ft_strchr(line, LABEL_CHAR)) != NULL)
 	{
 		(s != line) ? s-- : s;
-		if (*s == DIRECT_CHAR || s == line || *s == ' ' || *s == ',')
+		if (*s == DIRECT_CHAR || s == line || *s == ' ' || *s == ',' \
+		|| *s == '\t')
 			return (l);
 		(s != line) ? s++ : s;
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: exam <exam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 10:32:46 by exam              #+#    #+#             */
-/*   Updated: 2018/06/12 19:31:40 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/13 14:30:20 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,8 @@ char			**option_check(char **av, int ac, int *opt)
 		{
 			ft_color_choices(sv, 3);
 			write(2, "Error\n", 6);
-			write(2, "Usage: Options [dhi]\n-d Affiche hexo code\n-h Affiche\
-			usage option\n-i Affiche header info\n", 86);
-			return (NULL);
+			write(2, "Usage: Options [dhi] -h : more details\n", 39);
+			exit(1);
 		}
 		if (sv & I && !(sv & D))
 			ft_exit("Option -i olny works with option -d", 0);
