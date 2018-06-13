@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:33:32 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/13 15:00:41 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/13 19:36:45 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_pars		*ft_parsing(t_pars *lst, t_pars *tmp, t_labels **save)
 	tot_size = 0;
 	while (lst->next)
 	{
-		if (lst->next)
+		if (lst->next && lst->next->position == 0)
 		{
 			lst->next->position = lst->position + lst->size_code;
 			tot_size = lst->position;
@@ -70,8 +70,11 @@ t_pars		*ft_get_code(t_pars *lst, t_labels *label, int fd, int opt)
 {
 	t_pars	*tmp;
 	t_op	op_tab;
+	t_pars	*test;
 
 	tmp = lst;
+	test = label->lst;
+	// ft_print_labeled(label);
 	while (lst)
 	{
 		if (lst->op_code > 0)
@@ -90,6 +93,7 @@ t_pars		*ft_get_code(t_pars *lst, t_labels *label, int fd, int opt)
 					ft_exit("get_hexadecimal failed", -1);
 			}
 		}
+		label->lst = test;
 		lst = lst->next;
 	}
 	return (tmp);

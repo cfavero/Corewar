@@ -1,5 +1,9 @@
 .name           "42"
-.comment        "Just a basic Winner Program"
+.comment        "Just a basi #salut
+fn	ejwhfuih
+fm	jrngju,f	kjo
+f	mirwgio
+c Winner Program"
 
 entree:
 st			r5, :tirop

@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:36:54 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/13 14:42:03 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/13 19:20:34 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct		s_op
 /*
 **ERRORS
 */
-void				ft_error_head_name(char *line, char *name);
+void				ft_error_head_name(char *line, char *name, header_t *head);
 void				ft_exit(char *message, int i);
 void				ft_exit_str(char *name, char *mes, char c[6], char c2[6]);
 void				ft_print_lst(t_pars *lst);
