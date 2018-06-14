@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:45:52 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/14 16:31:15 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/14 17:39:22 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,26 @@ int		copy_comment(header_t **head, char *s, char *line, int cnt)
 	return (len);
 }
 
+int		save_the_comment(char *line, char *s, header_t **head, int cnt)
+{
+	if (s && (ft_strchr(s, 34)) != NULL)
+	{
+		(*head)->comment[0] ? s = line : s;
+		(*head)->magic = COREWAR_EXEC_MAGIC;
+		copy_comment(head, s, line, cnt);
+		(*head)->comment[ft_strlen((*head)->comment) - 1] = '\0';
+		return (1);
+	}
+	else
+	{
+		(!s) ? s = line : s;
+		(*head)->magic = 0;
+		copy_comment(head, s, line, cnt);
+		return (1);
+	}
+	return (0);
+}
+
 int		ft_hd_com(char *line, header_t **head, int cnt, int len)
 {
 	char	*s;
@@ -83,22 +103,7 @@ int		ft_hd_com(char *line, header_t **head, int cnt, int len)
 		if ((s = ft_strchr(line, 34)) != NULL || (*head)->magic == 0)
 		{
 			(s && !(*head)->comment[0]) ? s++ : s;
-			if (s && (ft_strchr(s, 34)) != NULL)
-			{
-				if ((*head)->comment[0])
-					s = line;
-				(*head)->magic = COREWAR_EXEC_MAGIC;
-				copy_comment(head, s, line, cnt);
-				(*head)->comment[ft_strlen((*head)->comment) - 1] = '\0';
-				return (1);
-			}
-			else
-			{
-				(!s) ? s = line : s;
-				(*head)->magic = 0;
-				len = copy_comment(head, s, line, cnt);
-				return (1);
-			}
+			return (save_the_comment(line, s, head, cnt));
 		}
 		ft_exit("Error in the .Comment can't find a comment", cnt);
 	}

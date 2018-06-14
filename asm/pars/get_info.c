@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:33:32 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/14 16:37:01 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/14 16:42:30 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_pars		*ft_get_info(int fd, t_labels **save, header_t **head)
 		counter++;
 		ft_strdel(&line);
 	}
-	if (!lst || (lst && !lst->next &&!lst->op_name))
+	if (!lst || (lst && !lst->next && !lst->op_name))
 		ft_exit("There aren't any instructions", -1);
 	return (lst);
 }
@@ -77,7 +77,6 @@ t_pars		*ft_get_code(t_pars *lst, t_labels *label, int fd, int opt)
 
 	tmp = lst;
 	(label) ? test = label->lst : 0;
-	// ft_print_labeled(label);
 	while (lst)
 	{
 		if (lst->op_code > 0)
@@ -86,17 +85,12 @@ t_pars		*ft_get_code(t_pars *lst, t_labels *label, int fd, int opt)
 			if (!(lst = ft_get_label_values(lst, label, 0, &op_tab)))
 				ft_exit("get_label failed", -1);
 			if (opt & D)
-			{
 				if (!(lst = ft_print_hexa(lst)))
 					ft_exit("Print hexa out failed", -1);
-			}
-			else
-			{
+			if (!(opt & D))
 				if (!(lst = ft_get_hexadecimal(lst, fd)))
 					ft_exit("get_hexadecimal failed", -1);
-			}
 		}
-
 		(label) ? label->lst = test : 0;
 		lst = lst->next;
 	}

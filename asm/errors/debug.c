@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 14:02:22 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/13 19:11:50 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/14 16:44:37 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void		ft_print_labeled(t_labels *l)
 	while (lst)
 	{
 		ft_printf("********************\n");
-		// ft_printf("%d\n", lst->max_size);
 		ft_printf("Label name : %s\n", lst->lst->label);
 		ft_printf("1- %s --> %d\n", lst->lst->op_name, lst->lst->position);
 		while (!lst->lst->op_name)
