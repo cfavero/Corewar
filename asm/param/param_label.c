@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:32 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/13 19:35:54 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/14 16:35:40 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,27 @@
 **Have to rethink the operation to calculate distance to label
 */
 
+t_pars		*change_labeled_values(t_labels *label, t_pars *l, int k)
+{
+	while (label->lst->next && label->lst->op_code == 0)
+		label->lst = label->lst->next;
+	ft_strdel(&l->value[k]);
+	if (label->lst->position - l->position > 0)
+		l->value[k] = ft_itoa((label->lst->position - l->position));
+	else
+		l->value[k] = ft_itoa(0xFFFF + ((label->lst->position -\
+			l->position) + 0x01));
+	return (l);
+}
+
 t_pars		*ft_get_label_values(t_pars *l, t_labels *lab, int k, t_op *op_tab)
 {
 	t_labels	*label;
 	t_pars		*tmp;
 
 	label = lab;
+	if (!lab)
+		return (l);
 	while (k < op_tab->nb_params && (l->type[k] == REG_CODE || l->value[k][0] \
 		!= ':'))
 	{
@@ -35,13 +50,7 @@ t_pars		*ft_get_label_values(t_pars *l, t_labels *lab, int k, t_op *op_tab)
 		label = label->next;
 	(!label) ? ft_exit("Label name not found in label_values", -1) : 0;
 	tmp = label->lst;
-	while (label->lst->next && label->lst->op_code == 0)
-		label->lst = label->lst->next;
-	if (label->lst->position - l->position > 0)
-		l->value[k] = ft_itoa((label->lst->position - l->position));
-	else
-		l->value[k] = ft_itoa(0xFFFF + ((label->lst->position -\
-			l->position) + 0x01));
+	l = change_labeled_values(label, l, k);
 	label->lst = tmp;
 	if (k != op_tab->nb_params)
 		l = ft_get_label_values(l, lab, k, op_tab);

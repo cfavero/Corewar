@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 11:33:32 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/13 20:21:48 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/14 16:37:01 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_pars		*ft_get_info(int fd, t_labels **save, header_t **head)
 	int		counter;
 
 	line = NULL;
+	lst = NULL;
 	counter = 1;
 	while ((get_next_line(fd, &line)) > 0)
 	{
@@ -38,6 +39,8 @@ t_pars		*ft_get_info(int fd, t_labels **save, header_t **head)
 		counter++;
 		ft_strdel(&line);
 	}
+	if (!lst || (lst && !lst->next &&!lst->op_name))
+		ft_exit("There aren't any instructions", -1);
 	return (lst);
 }
 
@@ -73,7 +76,7 @@ t_pars		*ft_get_code(t_pars *lst, t_labels *label, int fd, int opt)
 	t_pars	*test;
 
 	tmp = lst;
-	test = label->lst;
+	(label) ? test = label->lst : 0;
 	// ft_print_labeled(label);
 	while (lst)
 	{
@@ -93,7 +96,8 @@ t_pars		*ft_get_code(t_pars *lst, t_labels *label, int fd, int opt)
 					ft_exit("get_hexadecimal failed", -1);
 			}
 		}
-		label->lst = test;
+
+		(label) ? label->lst = test : 0;
 		lst = lst->next;
 	}
 	return (tmp);

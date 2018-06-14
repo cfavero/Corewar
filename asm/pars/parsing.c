@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:45:52 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/13 20:26:45 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/14 16:31:15 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,15 @@ int		copy_comment(header_t **head, char *s, char *line, int cnt)
 	int	len;
 
 	len = ft_strlen(s);
-	// ft_printf("<->%s<->\n", s);
 	while (s[len] && s[len] != 34)
 		len++;
 	(s[len] || s[len] == 34) ? len -= 1 : len;
 	(len > COMMENT_LENGTH) ? ft_exit(".Comment too long", cnt) : 0;
-	ft_strncat((*head)->comment, s, len);
-	if ((ft_strchr(s, 34)) == NULL)
-		ft_strcat((*head)->comment, "\n");
 	if (!(*head)->comment[0])
 		ft_error_head_name(line, COMMENT_CMD_STRING, *head);
+	ft_strncat((*head)->comment, s, len);
+	if ((*head)->magic == 0)
+		ft_strcat((*head)->comment, "\n");
 	return (len);
 }
 
@@ -86,17 +85,18 @@ int		ft_hd_com(char *line, header_t **head, int cnt, int len)
 			(s && !(*head)->comment[0]) ? s++ : s;
 			if (s && (ft_strchr(s, 34)) != NULL)
 			{
-				len = 0;
-				s = line;
+				if ((*head)->comment[0])
+					s = line;
 				(*head)->magic = COREWAR_EXEC_MAGIC;
 				copy_comment(head, s, line, cnt);
+				(*head)->comment[ft_strlen((*head)->comment) - 1] = '\0';
 				return (1);
 			}
 			else
 			{
 				(!s) ? s = line : s;
-				len = copy_comment(head, s, line, cnt);
 				(*head)->magic = 0;
+				len = copy_comment(head, s, line, cnt);
 				return (1);
 			}
 		}

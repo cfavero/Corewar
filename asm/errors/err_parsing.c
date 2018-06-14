@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:47:44 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/13 17:41:04 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/14 16:11:41 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void		ft_error_head_name(char *line, char *name, header_t *head)
 {
 	int		i;
 
-	(head->magic > 0) ? line = ft_comment_delete(line) : 0;
+	(head->magic > 0) ? line = ft_comment_delete(line) : line;
+	i = 0;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if ((!head->comment[0]) && ft_strncmp(&line[i], name, ft_strlen(name)) != 0)
