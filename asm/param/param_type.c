@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:38 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/14 17:30:34 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/14 19:52:52 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			ft_get_value(t_pars **lst, int *tab, int code, char *line)
 		i++;
 	j = i;
 	(*lst)->type[k] = code;
-	while (line[j] && line[j] != ',' && line[j] != ' ')
+	while (line[j] && line[j] != ',' && line[j] != ' ' && line[j] != '\t')
 		j++;
 	(*lst)->value[k] = ft_strndup(&line[i], j - i);
 	while (line[j] && line[j] == ' ')

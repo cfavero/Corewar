@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 17:47:44 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/14 16:11:41 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/14 19:50:48 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,6 @@ void		ft_check_label(t_pars *l, int i, int counter)
 		else
 			ft_exit("Error in the label name", counter);
 	}
+	if (l->label)
+		l->label[i] = '\0';
 }

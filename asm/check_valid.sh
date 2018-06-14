@@ -4,6 +4,8 @@ LOCATION=../test_files/valid_files/*.s
 FILECOUNT=0
 DIRCOUNT=0
 
+rm ../test_files/valid_files/*.t ../test_files/valid_files/*.txt
+
 if [ "$#" -lt "1" ]
 then
     echo "Usage: ./test2.sh <directory>"
@@ -81,9 +83,7 @@ do
 	then
 		echo "If nothing writen above : \x1B[32m[SUCCESS]\x1B[0m "$cmp $1
 	else
-		echo "If nothing writen above : \x1B[31m[FAIL]\x1B[0m "$cmp $1
+		echo "Problem with the output : \x1B[31m[FAIL]\x1B[0m "$cmp $1
 	fi
 	shift
 done
-
-rm ../test_files/valid_files/*.t ../test_files/valid_files/*.txt

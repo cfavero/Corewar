@@ -6,7 +6,7 @@
 /*   By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 13:48:32 by mmanley           #+#    #+#             */
-/*   Updated: 2018/06/14 16:35:40 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/14 19:52:56 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ t_pars		*change_labeled_values(t_labels *label, t_pars *l, int k)
 {
 	while (label->lst->next && label->lst->op_code == 0)
 		label->lst = label->lst->next;
+	// ft_printf("value[k] : _%10s_, %d\n", l->value[k], label->lst->position - l->position);
 	ft_strdel(&l->value[k]);
 	if (label->lst->position - l->position > 0)
 		l->value[k] = ft_itoa((label->lst->position - l->position));
 	else
 		l->value[k] = ft_itoa(0xFFFF + ((label->lst->position -\
 			l->position) + 0x01));
+	// ft_printf("%s\n", l->value[k]);
 	return (l);
 }
 

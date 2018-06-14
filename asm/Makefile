@@ -6,7 +6,7 @@
 #    By: mmanley <mmanley@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/05 11:40:02 by mmanley           #+#    #+#              #
-#    Updated: 2018/06/13 15:07:11 by mmanley          ###   ########.fr        #
+#    Updated: 2018/06/14 19:25:02 by mmanley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ objs :
 	@mkdir -p objs/options
 	@mkdir -p objs/asm_to_byte
 
-$(OBJ_PATH)%.o: %.c $(INC)/asm.h
+$(OBJ_PATH)%.o: %.c $(INC)/asm.h $(INC)/op.h
 	@gcc -o $@ -c $< -I $(LIB_PATH)/ -I ./$(INC)
 
 Champs:
