@@ -6,7 +6,7 @@
 /*   By: cfavero <cfavero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 18:25:47 by cfavero           #+#    #+#             */
-/*   Updated: 2018/06/01 19:20:04 by mmanley          ###   ########.fr       */
+/*   Updated: 2018/06/12 16:43:11 by mmanley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define LCYAN		"\x1B[96m"
 # define BLACK		"\x1b[30m"
 # define BOLD		"\x1b[1m"
+# define NBOLD		"\x1b[m"
 
 typedef struct		s_list
 {
@@ -38,6 +39,7 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+void				ft_print_bits(unsigned int octet, int size);
 int					ft_tablen(char **tab);
 int					ft_occ_pos(const char *str, int c);
 int					rec_nbr_count(long nb, int i, int base);

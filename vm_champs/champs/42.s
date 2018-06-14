@@ -1,28 +1,21 @@
-
-
-.name           "tes #t"
-
-
+.name           "42"
 .comment        "Just a basic Winner Program"
 
-
-
- entree:
- 	live%42		# entree ciao
-	ld 0,r5
-	ld%0,r5
+entree:	live	%42		# entree
+	ld	%0,r5
+	ld	%0,r5
 	zjmp	%:bite
 
- 	tir:	sti	r1,%:tir,%1
+tir:	sti	r1,%:tirb,%1
 	ld	%2304,r10
 	ld	%1,r5
 	ld	%0,r11
 
 	ld	%4,r3
-tirf:
+tirf:	live	%42
 	fork	%:tirop
-	live %742
-	sub r3,r5,r3
+	live	%742
+	sub	r3,r5,r3
 	zjmp	%:top
 	ld	%0,r11
 	fork	%:tirvd
@@ -81,7 +74,8 @@ p32li:	live	%1
 tirvd:	zjmp	%:tirvd2
 
 bite:	sti     r1,%:copie,%2
-        ldi     %:copie,%3,r2   # met le ld a l'entre
+        ldi     %:copie,%3,r2   # met le ld a l'entree
+        sti     r2,%:entree,%-4
         ldi     %:copie,%-1,r2
         sti     r2,%:entree,%-8
 

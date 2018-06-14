@@ -1,2 +1,2 @@
 .name			"Sauto"
-.comment	dd		"This is a comment"
+.comment	d	"This is a comment"
